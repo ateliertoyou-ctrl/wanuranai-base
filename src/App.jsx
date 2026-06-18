@@ -1,18 +1,18 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 
 const ZODIAC_SIGNS = [
-  { name: "牡羊座", emoji: "♁E, dates: "3/21、E/19", en: "Aries" },
-  { name: "牡牛座", emoji: "♁E, dates: "4/20、E/20", en: "Taurus" },
-  { name: "双子座", emoji: "♁E, dates: "5/21、E/21", en: "Gemini" },
-  { name: "蟹座",   emoji: "♁E, dates: "6/22、E/22", en: "Cancer" },
-  { name: "獁E��座", emoji: "♁E, dates: "7/23、E/22", en: "Leo" },
-  { name: "乙女座", emoji: "♁E, dates: "8/23、E/22", en: "Virgo" },
-  { name: "天秤座", emoji: "♁E, dates: "9/23、E0/23", en: "Libra" },
-  { name: "蠍座",   emoji: "♁E, dates: "10/24、E1/22", en: "Scorpio" },
-  { name: "封E��座", emoji: "♁E, dates: "11/23、E2/21", en: "Sagittarius" },
-  { name: "山羊座", emoji: "♁E, dates: "12/22、E/19", en: "Capricorn" },
-  { name: "水瓶座", emoji: "♁E, dates: "1/20、E/18", en: "Aquarius" },
-  { name: "魚座",   emoji: "♁E, dates: "2/19、E/20", en: "Pisces" },
+  { name: "牡羊座", emoji: "♈", dates: "3/21〜4/19", en: "Aries" },
+  { name: "牡牛座", emoji: "♉", dates: "4/20〜5/20", en: "Taurus" },
+  { name: "双子座", emoji: "♊", dates: "5/21〜6/21", en: "Gemini" },
+  { name: "蟹座",   emoji: "♋", dates: "6/22〜7/22", en: "Cancer" },
+  { name: "獅子座", emoji: "♌", dates: "7/23〜8/22", en: "Leo" },
+  { name: "乙女座", emoji: "♍", dates: "8/23〜9/22", en: "Virgo" },
+  { name: "天秤座", emoji: "♎", dates: "9/23〜10/23", en: "Libra" },
+  { name: "蠍座",   emoji: "♏", dates: "10/24〜11/22", en: "Scorpio" },
+  { name: "射手座", emoji: "♐", dates: "11/23〜12/21", en: "Sagittarius" },
+  { name: "山羊座", emoji: "♑", dates: "12/22〜1/19", en: "Capricorn" },
+  { name: "水瓶座", emoji: "♒", dates: "1/20〜2/18", en: "Aquarius" },
+  { name: "魚座",   emoji: "♓", dates: "2/19〜3/20", en: "Pisces" },
 ];
 
 // Atelier ToYou shop category links
@@ -32,20 +32,20 @@ const SHOP_CATEGORIES = {
   poodle: "https://ateliertoyou.base.shop/",
 };
 
-const LUCKY_COLORS = ["ラベンダー", "ローズゴールチE, "エメラルドグリーン", "サンセチE��オレンジ", "ミッドナイトブルー", "シルバ�Eグレー", "コーラルピンク", "ターコイズ", "バ�EガンチE��", "クリーム", "チャコール", "ライトイエロー"];
+const LUCKY_COLORS = ["ラベンダー", "ローズゴールド", "エメラルドグリーン", "サンセットオレンジ", "ミッドナイトブルー", "シルバーグレー", "コーラルピンク", "ターコイズ", "バーガンディ", "クリーム", "チャコール", "ライトイエロー"];
 const LUCKY_NUMBERS = [3, 5, 7, 8, 11, 12, 15, 17, 21, 22, 24, 28];
 
 function StarRating({ score }) {
   return (
     <div style={{ display: "flex", gap: "3px" }}>
       {[1,2,3,4,5].map(i => (
-        <span key={i} style={{ color: i <= score ? "#f4c430" : "#444", fontSize: "16px" }}>☁E/span>
+        <span key={i} style={{ color: i <= score ? "#f4c430" : "#444", fontSize: "16px" }}>★</span>
       ))}
     </div>
   );
 }
 
-function ShopButton({ href, label, emoji = "🛍�E�E, accent = false }) {
+function ShopButton({ href, label, emoji = "🛍️", accent = false }) {
   return (
     <a
       href={href}
@@ -97,21 +97,26 @@ export default function App() {
   });
 
   const buildPrompt = (sign, m, y) => `
-あなた�Eペット占ぁE��です、E{y}年${m}月�E${sign.name}�E�E{sign.en}�E��E飼ぁE��・愛犬向け月間占ぁE��書ぁE��ください、E
-ルール�E�E- 犬の種類に例えて今月の運勢を表現する
-- ショチE�E誘導文を�E然に1、E箁E��絁E��込む�E�押しつけがましくなく！E- ショチE�E名�E「Atelier ToYou、E
-以下�EJSON形式�Eみで返してください�E�余�EなチE��スト�EMarkdownなし）！E{
-  "dogBreed": "犬の種類名�E�例：柴犬、ゴールチE��レトリーバ�Eなど�E�E,
-  "dogEmoji": "犬の絵斁E��（🐕🐩🦮🐕‍🦺など�E�E,
-  "tagline": "今月のキャチE��コピ�E�E�E5斁E��以冁E��犬の例えを含む�E�E,
-  "overall": "総合運！E80字程度。犬の特徴を活かした運勢。末尾にさりげなくAtelier ToYouへの誘導を1斁E�Eれる�E�E,
-  "love": "恋�E運！E0字程度�E�E,
-  "work": "仕事運�E�E0字程度�E�E,
-  "money": "金運�E�E0字程度�E�E,
-  "health": "健康運！E0字程度。�E犬の健康めE��裁E�E体温調節にも触れてもよぁE��E,
-  "shopMessage": "ショチE�E誘導メチE��ージ�E�E0字程度。今月の犬タイプに合うウェアめE��ラチE��ーカラーのアイチE��をAtelier ToYouで探してみて、とぁE��自然な一言�E�E,
-  "shopCategoryHint": "おすすめカチE��リーキーワード！Eogs/cats/goods/season/sale のぁE��れか1つ�E�E,
-  "advice": "今月のワンポイントアドバイス�E�犬の例えで50字程度�E�E
+あなたはペット占い師です。${y}年${m}月の${sign.name}（${sign.en}）の飼い主・愛犬向け月間占いを書いてください。
+
+ルール：
+- 犬の種類に例えて今月の運勢を表現する
+- ショップ誘導文を自然に1〜2箇所組み込む（押しつけがましくなく）
+- ショップ名は「Atelier ToYou」
+
+以下のJSON形式のみで返してください（余分なテキスト・Markdownなし）：
+{
+  "dogBreed": "犬の種類名（例：柴犬、ゴールデンレトリーバーなど）",
+  "dogEmoji": "犬の絵文字（🐕🐩🦮🐕‍🦺など）",
+  "tagline": "今月のキャッチコピー（25文字以内、犬の例えを含む）",
+  "overall": "総合運（180字程度。犬の特徴を活かした運勢。末尾にさりげなくAtelier ToYouへの誘導を1文入れる）",
+  "love": "恋愛運（80字程度）",
+  "work": "仕事運（80字程度）",
+  "money": "金運（60字程度）",
+  "health": "健康運（60字程度。愛犬の健康や服装・体温調節にも触れてもよい）",
+  "shopMessage": "ショップ誘導メッセージ（50字程度。今月の犬タイプに合うウェアや、ラッキーカラーのアイテムをAtelier ToYouで探してみて、という自然な一言）",
+  "shopCategoryHint": "おすすめカテゴリーキーワード（dogs/cats/goods/season/sale のいずれか1つ）",
+  "advice": "今月のワンポイントアドバイス（犬の例えで50字程度）"
 }`;
 
   const fetchHoroscope = async (i) => {
@@ -135,7 +140,7 @@ export default function App() {
       const shopUrl = SHOP_CATEGORIES[parsed.shopCategoryHint] || SHOP_CATEGORIES.dogs;
       setHoroscopes(prev => ({ ...prev, [i]: { ...parsed, lucky, shopUrl } }));
     } catch {
-      setError("占ぁE�E生�Eに失敗しました。もぁE��度お試しください、E);
+      setError("占いの生成に失敗しました。もう一度お試しください。");
     } finally {
       setLoading(false);
     }
@@ -186,7 +191,7 @@ export default function App() {
         borderBottom: "1px solid rgba(192,132,252,0.12)",
       }}>
         <div style={{ fontSize: "11px", color: "#c084fc", letterSpacing: "0.3em", marginBottom: "10px" }}>
-          ATELIER TOYOU ÁEMONTHLY HOROSCOPE
+          ATELIER TOYOU × MONTHLY HOROSCOPE
         </div>
         <h1 style={{
           fontSize: "clamp(26px, 6vw, 46px)",
@@ -196,9 +201,10 @@ export default function App() {
           WebkitTextFillColor: "transparent",
           margin: "0 0 6px",
         }}>
-          🐾 ワン占ぁE        </h1>
+          🐾 ワン占い
+        </h1>
         <p style={{ color: "#a78bfa", fontSize: "13px", margin: "0 0 20px" }}>
-          {currentYear}年{currentMonth}朁E✦ あなたと愛犬の今月の運勢
+          {currentYear}年{currentMonth}月 ✦ あなたと愛犬の今月の運勢
         </p>
         <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
           <button
@@ -212,7 +218,7 @@ export default function App() {
               boxShadow: generating ? "none" : "0 4px 18px rgba(124,58,237,0.45)",
             }}
           >
-            {generating ? "✨ 占ぁE��..." : "✨ 全星座をまとめて占ぁE}
+            {generating ? "✨ 占い中..." : "✨ 全星座をまとめて占う"}
           </button>
           <a
             href={SHOP_CATEGORIES.top}
@@ -226,7 +232,7 @@ export default function App() {
               textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "6px",
             }}
           >
-            🛍�E�EAtelier ToYou ショチE�Eへ
+            🛍️ Atelier ToYou ショップへ
           </a>
         </div>
       </div>
@@ -285,7 +291,7 @@ export default function App() {
             {loading ? (
               <div style={{ textAlign: "center", padding: "60px 0" }}>
                 <div style={{ fontSize: "44px", marginBottom: "14px", display: "inline-block", animation: "spin 1.5s linear infinite" }}>🐾</div>
-                <p style={{ color: "#a78bfa", fontSize: "15px" }}>占ぁE��です…</p>
+                <p style={{ color: "#a78bfa", fontSize: "15px" }}>占い中です…</p>
                 <style>{`@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}`}</style>
               </div>
             ) : d ? (
@@ -294,14 +300,15 @@ export default function App() {
                 <div style={{ textAlign: "center", marginBottom: "28px" }}>
                   <div style={{ fontSize: "52px", marginBottom: "6px" }}>{d.dogEmoji}</div>
                   <div style={{ fontSize: "12px", color: "#c084fc", letterSpacing: "0.2em", marginBottom: "5px" }}>
-                    {s.emoji} {s.name} ÁE{s.dates}
+                    {s.emoji} {s.name} × {s.dates}
                   </div>
                   <h2 style={{
                     fontSize: "clamp(20px, 5vw, 32px)", fontWeight: "900", margin: "0 0 10px",
                     background: "linear-gradient(135deg, #e9d5ff, #c084fc)",
                     WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
                   }}>
-                    今月は「{d.dogBreed}」タイチE                  </h2>
+                    今月は「{d.dogBreed}」タイプ
+                  </h2>
                   <div style={{
                     display: "inline-block", padding: "7px 18px", borderRadius: "50px",
                     background: "rgba(124,58,237,0.18)", border: "1px solid rgba(192,132,252,0.3)",
@@ -314,10 +321,10 @@ export default function App() {
                 {/* Score grid */}
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: "10px", marginBottom: "24px" }}>
                   {[
-                    { label: "💑 恋�E遁E, score: d.lucky.loveScore },
+                    { label: "💑 恋愛運", score: d.lucky.loveScore },
                     { label: "💼 仕事運", score: d.lucky.workScore },
                     { label: "💰 金運",   score: d.lucky.moneyScore },
-                    { label: "🏃 健康遁E, score: d.lucky.healthScore },
+                    { label: "🏃 健康運", score: d.lucky.healthScore },
                   ].map(({ label, score }) => (
                     <div key={label} style={{
                       background: "rgba(255,255,255,0.05)", borderRadius: "12px",
@@ -334,17 +341,17 @@ export default function App() {
                   background: "rgba(124,58,237,0.1)", border: "1px solid rgba(192,132,252,0.18)",
                   borderRadius: "16px", padding: "20px 22px", marginBottom: "18px",
                 }}>
-                  <div style={{ fontSize: "11px", color: "#c084fc", letterSpacing: "0.15em", marginBottom: "10px" }}>🔮 総合遁E/div>
+                  <div style={{ fontSize: "11px", color: "#c084fc", letterSpacing: "0.15em", marginBottom: "10px" }}>🔮 総合運</div>
                   <p style={{ color: "#e9d5ff", lineHeight: "1.9", fontSize: "14px", margin: 0 }}>{d.overall}</p>
                 </div>
 
                 {/* Detail cards */}
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px,1fr))", gap: "10px", marginBottom: "18px" }}>
                   {[
-                    { icon: "💑", label: "恋�E遁E, text: d.love },
+                    { icon: "💑", label: "恋愛運", text: d.love },
                     { icon: "💼", label: "仕事運", text: d.work },
                     { icon: "💰", label: "金運",   text: d.money },
-                    { icon: "🏃", label: "健康遁E, text: d.health },
+                    { icon: "🏃", label: "健康運", text: d.health },
                   ].map(({ icon, label, text }) => (
                     <div key={label} style={{
                       background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)",
@@ -363,7 +370,7 @@ export default function App() {
                     borderRadius: "12px", padding: "14px", textAlign: "center",
                   }}>
                     <div style={{ fontSize: "18px", marginBottom: "5px" }}>🎨</div>
-                    <div style={{ fontSize: "10px", color: "#a78bfa", marginBottom: "4px" }}>ラチE��ーカラー</div>
+                    <div style={{ fontSize: "10px", color: "#a78bfa", marginBottom: "4px" }}>ラッキーカラー</div>
                     <div style={{ fontSize: "14px", color: "#e9d5ff", fontWeight: "700" }}>{d.lucky.color}</div>
                   </div>
                   <div style={{
@@ -371,7 +378,7 @@ export default function App() {
                     borderRadius: "12px", padding: "14px", textAlign: "center",
                   }}>
                     <div style={{ fontSize: "18px", marginBottom: "5px" }}>🔢</div>
-                    <div style={{ fontSize: "10px", color: "#a78bfa", marginBottom: "4px" }}>ラチE��ーナンバ�E</div>
+                    <div style={{ fontSize: "10px", color: "#a78bfa", marginBottom: "4px" }}>ラッキーナンバー</div>
                     <div style={{ fontSize: "14px", color: "#e9d5ff", fontWeight: "700" }}>{d.lucky.number}</div>
                   </div>
                 </div>
@@ -389,7 +396,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* ☁EShop CTA Block */}
+                {/* ★ Shop CTA Block */}
                 <div style={{
                   background: "linear-gradient(135deg, rgba(79,70,229,0.25), rgba(124,58,237,0.25))",
                   border: "1px solid rgba(192,132,252,0.35)",
@@ -401,11 +408,12 @@ export default function App() {
                     {d.shopMessage}
                   </p>
                   <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
-                    <ShopButton href={d.shopUrl} label="おすすめアイチE��を見る" emoji="👗" accent={true} />
-                    <ShopButton href={SHOP_CATEGORIES.sale} label="セールをチェチE��" emoji="🏷�E�E />
+                    <ShopButton href={d.shopUrl} label="おすすめアイテムを見る" emoji="👗" accent={true} />
+                    <ShopButton href={SHOP_CATEGORIES.sale} label="セールをチェック" emoji="🏷️" />
                   </div>
                   <div style={{ marginTop: "14px", fontSize: "11px", color: "#a78bfa", opacity: 0.7 }}>
-                    Atelier ToYou  Eペット服・犬服専門庁E                  </div>
+                    Atelier ToYou — ペット服・犬服専門店
+                  </div>
                 </div>
 
                 {/* LINE CTA */}
@@ -419,10 +427,11 @@ export default function App() {
                 }}>
                   <div style={{ fontSize: '22px', marginBottom: '8px' }}>🐾📩</div>
                   <p style={{ color: '#e9d5ff', fontSize: '15px', fontWeight: '700', margin: '0 0 4px' }}>
-                    毎月のわんこ占ぁE��受け取る
+                    毎月のわんこ占いを受け取る
                   </p>
                   <p style={{ color: '#a78bfa', fontSize: '13px', margin: '0 0 16px', lineHeight: '1.7' }}>
-                    LINEに登録すると毎月1日に<br />最新のわんこ占ぁE��お届けします🌁E                  </p>
+                    LINEに登録すると毎月1日に<br />最新のわんこ占いをお届けします🌟
+                  </p>
                   <a
                     href="https://lin.ee/9gocHWN"
                     target="_blank"
@@ -446,7 +455,8 @@ export default function App() {
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
                       <path d="M12 2C6.48 2 2 6.02 2 11c0 3.07 1.6 5.8 4.1 7.55V22l3.6-2c.74.2 1.5.31 2.3.31 5.52 0 10-4.02 10-9S17.52 2 12 2z"/>
                     </svg>
-                    LINE友だち追加�E�無料！E                  </a>
+                    LINE友だち追加（無料）
+                  </a>
                 </div>
               </>
             ) : null}
@@ -456,7 +466,7 @@ export default function App() {
         {selected === null && !generating && (
           <div style={{ textAlign: "center", padding: "48px 0", color: "#7c3aed", opacity: 0.55 }}>
             <div style={{ fontSize: "44px", marginBottom: "10px" }}>🌟</div>
-            <p style={{ fontSize: "14px" }}>星座を選んで今月の運勢を見てみましょぁE/p>
+            <p style={{ fontSize: "14px" }}>星座を選んで今月の運勢を見てみましょう</p>
           </div>
         )}
       </div>
